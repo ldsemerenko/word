@@ -3,13 +3,6 @@
   <component name="Play2ExcludedModulesSettings">
     <option name="INFO">
       <map>
-        <entry key="pl">
-          <value>
-            <ProjectSettingsEntry>
-              <option name="playDistrPath" value="$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.11/jars/play_2.11-2.5.12.jar" />
-            </ProjectSettingsEntry>
-          </value>
-        </entry>
         <entry key="root">
           <value>
             <ProjectSettingsEntry>
@@ -39,6 +32,13 @@
                 </list>
               </option>
               <option name="uri" value="$PROJECT_DIR$" />
+            </ProjectSettingsEntry>
+          </value>
+        </entry>
+        <entry key="word">
+          <value>
+            <ProjectSettingsEntry>
+              <option name="playDistrPath" value="$USER_HOME$/.ivy2/cache/com.typesafe.play/play_2.11/jars/play_2.11-2.5.10.jar" />
             </ProjectSettingsEntry>
           </value>
         </entry>

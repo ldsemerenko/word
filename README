@@ -23,7 +23,7 @@ Controllers
 
 Components
 ==========
-
+ 
 - Module.java:
 
   Shows how to use Guice to bind all the components needed by your application.

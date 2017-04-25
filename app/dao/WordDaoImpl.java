@@ -4,7 +4,11 @@ import model.Word;
 
 import java.util.List;
 
-public class wWordDAOImpl implements WordDAO{
+public class WordDaoImpl implements WordDao {
+
+    public WordDaoImpl() {
+
+    }
 
     @Override
     public void create(Word users) {
