@@ -33,8 +33,9 @@ public class WordDaoImpl implements WordDao {
     @Override
     public List<Word> findAll() {
         EntityManager em = jpaApi.em();
-        List<Word> wordList = new ArrayList<>();
+//        List<Word> wordList = new ArrayList<>();
 //        em.find(Word.class, );
-        return wordList.isEmpty()?new ArrayList<Word>():wordList;
+        List<Word> wordList = em.createQuery("SELECT w from Word w", Word.class).getResultList();
+        return /*wordList.isEmpty() ? new ArrayList<>() : */wordList;
     }
 }
