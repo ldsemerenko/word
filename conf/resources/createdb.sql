@@ -1,5 +1,12 @@
+CREATE role wordUser;
+ALTER role wordUser PASSWORD 'word';
+CREATE DATABASE worddb WITH OWNER wordUser;
+-------------------------------------------
+CREATE SCHEMA word;
+ALTER SCHEMA word owner to wordUser;
+-----
 CREATE SEQUENCE word.word_id_seq;
-
+-----
 CREATE TABLE word.word(
   id BIGINT PRIMARY KEY DEFAULT nextval('word.word_id_seq'),
   word TEXT,
@@ -12,5 +19,4 @@ CREATE TABLE word.word(
   lastRead DATE,
   callCount INT,
   correctTranslations INT
-
 )
