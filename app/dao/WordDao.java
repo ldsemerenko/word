@@ -9,5 +9,6 @@ public interface WordDao {
     void create (Word users);
     void update (Word users);
     List<Word> findAll();
-
+    Word findWord (String findWord);
+    Word findTranslation (String findWord);
     }

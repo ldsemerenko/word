@@ -1,34 +1,52 @@
 package model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
+import org.hibernate.annotations.TypeDefs;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
+@TypeDefs(value={
+        @TypeDef(name = "varcharArr", typeClass = db_types.VarcharArrayType.class)
+})
+@Table(name = "word", schema = "word")
 public class Word {
     @Id
-    @Column
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+
+    @Column(name = "word")
     private String word;
-    @Column
+
+    @Column(name = "transcription")
     private String transcription;
-    @Column
+
+    @Column(name = "translation")
     private String translation;
-    @Column
+
+    @Column(name = "alternativeTranslation")
+    @Type(type = "varcharArr")
     private String[] alternativeTranslation;
-    @Column
+
+    @Column(name = "example")
     private String example;
-    @Column
+
+    @Column(name = "exampleTranslation")
     private String exampleTranslation;
-    @Column
+
+    @Column(name = "creature")
     private Date creature;
-    @Column
+
+    @Column(name = "lastRead")
     private Date lastRead;
-    @Column
+
+    @Column(name = "callCount")
     private int callCount;
-    @Column
+
+    @Column(name = "correctTranslations")
     private int correctTranslations;
 
 

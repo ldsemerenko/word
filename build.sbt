@@ -13,5 +13,8 @@ libraryDependencies ++= Seq(
   javaJpa,
   "org.postgresql" % "postgresql" % "9.4-1206-jdbc42",
   "com.google.code.gson" % "gson" % "2.7",
-  "org.hibernate" % "hibernate-entitymanager" % "5.1.0.Final"
+  "dom4j" % "dom4j" % "1.6.1",
+  "org.hibernate" % "hibernate-entitymanager" % "5.2.1.Final"
 )
+
+routesGenerator := InjectedRoutesGenerator

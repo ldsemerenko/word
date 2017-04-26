@@ -6,11 +6,15 @@ import model.Word;
 import play.db.jpa.JPAApi;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
+
+import java.util.Collections;
 import java.util.List;
 
 @Singleton
 public class WordDaoImpl implements WordDao {
+
     private final JPAApi jpaApi;
 
     @Inject
@@ -33,9 +37,35 @@ public class WordDaoImpl implements WordDao {
     @Override
     public List<Word> findAll() {
         EntityManager em = jpaApi.em();
-//        List<Word> wordList = new ArrayList<>();
-//        em.find(Word.class, );
-        List<Word> wordList = em.createQuery("SELECT w from Word w", Word.class).getResultList();
-        return /*wordList.isEmpty() ? new ArrayList<>() : */wordList;
+        TypedQuery<Word> query = em.createQuery("SELECT w from Word w", Word.class);
+        try {
+            return query.getResultList();
+        } catch (NoResultException e){
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public Word findWord(String findWord) {
+        EntityManager em = jpaApi.em();
+        TypedQuery<Word> query = em.createQuery("SELECT w from Word w where w.word = :findW", Word.class)
+                .setParameter("findW", findWord);
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException e){
+            return null;
+        }
+    }
+
+    @Override
+    public Word findTranslation(String findWord) {
+        EntityManager em = jpaApi.em();
+        TypedQuery<Word> query = em.createQuery("SELECT w from Word w where w.word = :findT", Word.class)
+                .setParameter("findT", findWord);
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException e){
+            return null;
+        }
     }
 }

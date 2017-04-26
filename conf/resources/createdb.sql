@@ -19,4 +19,4 @@ CREATE TABLE word.word(
   lastRead DATE,
   callCount INT,
   correctTranslations INT
-)
+);
