@@ -6,6 +6,12 @@ function config($stateProvider, $urlRouterProvider) {
             url: "/main",
             templateUrl: "/assets/views/main.html"
         });
+
+    $stateProvider
+        .state('test',{
+            url: "/test",
+            templateUrl: "/assets/views/test.html"
+        });
 }
 
 angular

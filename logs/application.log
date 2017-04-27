@@ -1,5 +1,5 @@
-2017-04-27 13:12:59,861 [WARN] from application in ForkJoinPool-1-worker-1 - application.conf @ file:/home/pavel/workspace/IdeaProjects/word/target/scala-2.11/classes/application.conf: 356: user is deprecated, use username instead
-2017-04-27 13:12:59,866 [INFO] from application in ForkJoinPool-1-worker-1 - Creating Pool for datasource 'default'
-2017-04-27 13:12:59,964 [INFO] from play.api.db.HikariCPConnectionPool in ForkJoinPool-1-worker-1 - datasource [default] bound to JNDI as DefaultDS
-2017-04-27 13:12:59,982 [INFO] from play.api.db.DefaultDBApi in ForkJoinPool-1-worker-1 - Database [default] connected at jdbc:postgresql:worddb
-2017-04-27 13:13:01,473 [INFO] from play.api.Play in ForkJoinPool-1-worker-1 - Application started (Dev)
+2017-04-27 18:25:24,730 [WARN] from application in ForkJoinPool-1-worker-1 - application.conf @ file:/home/oem/IdeaProjects/word/target/scala-2.11/classes/application.conf: 356: user is deprecated, use username instead
+2017-04-27 18:25:24,745 [INFO] from application in ForkJoinPool-1-worker-1 - Creating Pool for datasource 'default'
+2017-04-27 18:25:24,984 [INFO] from play.api.db.HikariCPConnectionPool in ForkJoinPool-1-worker-1 - datasource [default] bound to JNDI as DefaultDS
+2017-04-27 18:25:25,040 [INFO] from play.api.db.DefaultDBApi in ForkJoinPool-1-worker-1 - Database [default] connected at jdbc:postgresql:worddb
+2017-04-27 18:25:28,664 [INFO] from play.api.Play in ForkJoinPool-1-worker-1 - Application started (Dev)

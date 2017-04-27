@@ -1,4 +1,5 @@
-function MainController($scope, $http) {
+function MainController($scope, $http, $state) {
+
     $scope.addWord = function () {
         var word = {
             word: $scope.word,
@@ -12,20 +13,9 @@ function MainController($scope, $http) {
             });
     };
 
-    $scope.getRandomWords = function () {
-        var count = 20;
-        $http({
-            url: '/getRandomWords',
-            method: 'GET',
-            params: {
-                count: count
-            }
-        }).success(function (data) {
-            console.log(data);
-        }).error(function (data) {
-            console.log(data);
-        });
-    }
+    $scope.startTest = function() {
+        $state.go('test');
+    };
 
 }
 

@@ -41,6 +41,7 @@ public class Application extends Controller{
         Gson gson = new Gson();
         JsonNode body = request().body().asJson();
         word = gson.fromJson(body.toString(), Word.class);
+        if(word.getWord() == null || word.getTranslation() == null){return ok("Input error");}
         if (wordDao.findWord(word.getWord()) == null) {
             wordDao.create(word);
             return ok("Word added");
