@@ -26,6 +26,7 @@ function MainController($scope, $http) {
             console.log(data);
         });
     }
+
 }
 
 angular

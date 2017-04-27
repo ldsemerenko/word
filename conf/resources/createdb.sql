@@ -3,7 +3,8 @@ ALTER role wordUser PASSWORD 'word';
 CREATE DATABASE worddb WITH OWNER wordUser;
 -------------------------------------------
 CREATE SCHEMA word;
-ALTER SCHEMA word owner to wordUser;
+ALTER SCHEMA word OWNER TO wordUser;
+Alter user worduser with superuser login;
 -----
 CREATE SEQUENCE word.word_id_seq;
 -----

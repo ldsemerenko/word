@@ -10,7 +10,6 @@ import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
