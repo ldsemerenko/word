@@ -1,20 +1,20 @@
 function TestController($scope, $http, $state) {
     $scope.translation = '';
-    $scope.in_translation = '';
+    $scope.in_translation = ' ';
     $scope.word = '';
     var currIndex = -1;
 
-    $scope.check = function(){
-
-    };
-
     $scope.nextWord = function () {
         var length = $scope.words.length;
-        if(currIndex < length - 1)
+        if(currIndex < length - 1) {
             currIndex++;
-
+            console.log(currIndex+1 + '/' + length);
+        }
+        $scope.in_translation = '';
+        $scope.words[currIndex].in_translation = $scope.in_translation;
         $scope.word = $scope.words[currIndex].word;
         $scope.translation = $scope.words[currIndex].translation;
+
     };
     $scope.prevWord = function () {
         if(currIndex > 0)
