@@ -5,6 +5,7 @@ import org.hibernate.annotations.TypeDef;
 import org.hibernate.annotations.TypeDefs;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.Date;
 
 @Entity
@@ -136,5 +137,22 @@ public class Word {
 
     public void setCorrectTranslations(int correctTranslations) {
         this.correctTranslations = correctTranslations;
+    }
+
+    @Override
+    public String toString() {
+        return "Word{" +
+                "id=" + id +
+                ", word='" + word + '\'' +
+                ", transcription='" + transcription + '\'' +
+                ", translation='" + translation + '\'' +
+                ", alternativeTranslation=" + Arrays.toString(alternativeTranslation) +
+                ", example='" + example + '\'' +
+                ", exampleTranslation='" + exampleTranslation + '\'' +
+                ", creature=" + creature +
+                ", lastRead=" + lastRead +
+                ", callCount=" + callCount +
+                ", correctTranslations=" + correctTranslations +
+                '}';
     }
 }

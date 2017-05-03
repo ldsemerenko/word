@@ -6,6 +6,8 @@ GET     /                           controllers.Assets.at(path="/public", file: 
 
 POST    /addWord                    controllers.Application.addWord()
 
+POST    /updateWords                controllers.Application.updateWords()
+
 GET     /getRandomWords             controllers.Application.getRandomWords()
 
 

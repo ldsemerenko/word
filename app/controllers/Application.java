@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static play.libs.Json.toJson;
-
 public class Application extends Controller{
     private final WordDao wordDao;
 
@@ -40,12 +38,13 @@ public class Application extends Controller{
         JsonArray wordArray = new JsonArray();
         for (Word word : wordList){
             List<Word> tempList = new ArrayList<>(allWodrsList);
+            Collections.shuffle(tempList);
             JsonElement wordElement = gson.toJsonTree(word);
             tempList.remove(word);
-
             tempList = tempList.subList(0,4);
             tempList.add(word);
             Collections.shuffle(tempList);
+
             JsonArray randWordArray = new JsonArray();
             randWordArray.add(tempList.get(0).getTranslation());
             randWordArray.add(tempList.get(1).getTranslation());
@@ -58,6 +57,24 @@ public class Application extends Controller{
         }
 
         return ok(wordArray.toString());
+    }
+
+    @Transactional
+    public Result updateWords(){
+        Word[] words;
+        Gson gson = new Gson();
+        JsonNode body = request().body().asJson();
+        words = gson.fromJson(body.toString(), Word[].class);
+      /*  for (int i = 0; i < words.length; i++) {
+            System.out.println(words[i]);
+        }*/
+        for(Word w : words){
+            Word word = wordDao.findWord(w.getWord());
+            word.setCallCount(word.getCallCount()+1);
+            word.setCorrectTranslations(word.getCorrectTranslations()+w.getCorrectTranslations());
+            wordDao.update(word);
+        }
+        return ok("update ok");
     }
 
     @Transactional

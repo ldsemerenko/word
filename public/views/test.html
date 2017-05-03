@@ -3,18 +3,18 @@
     <div>
         word: {{word}}
     </div>
+    <!--<div>-->
+        <!--translation: <input type="text" ng-model="in_translation">-->
+    <!--</div>-->
+    <!--<div>-->
+        <!--<input type="button" ng-click="nextWord()" value="next">-->
+    <!--</div>-->
     <div>
-        translation: <input type="text" ng-model=in_translation>
-    </div>
-    <div>
-        <input type="button" ng-click="nextWord()" value="next">
-    </div>
-    <div>
-        <input type="button" ng-click="checkWord()" value="">
-        <input type="button" ng-click="checkWord()" value="check">
-        <input type="button" ng-click="checkWord()" value="check">
-        <input type="button" ng-click="checkWord()" value="check">
-        <input type="button" ng-click="checkWord()" value="check">
+        <input type="button" ng-click="checkWords(translations[0])" ng-value="translations[0]">
+        <input type="button" ng-click="checkWords(translations[1])" ng-value="translations[1]">
+        <input type="button" ng-click="checkWords(translations[2])" ng-value="translations[2]">
+        <input type="button" ng-click="checkWords(translations[3])" ng-value="translations[3]">
+        <input type="button" ng-click="checkWords(translations[4])" ng-value="translations[4]">
     </div>
 </div>
 
