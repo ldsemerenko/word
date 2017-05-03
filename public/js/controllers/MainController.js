@@ -8,9 +8,14 @@ function MainController($scope, $http, $state) {
         $http.post('/addWord', word)
             .success(function (data) {
                 console.log(data);
+                if(data=='Word added'){
+                    $scope.word = '';
+                    $scope.translation = '';
+                }
             }).error(function (data) {
                 console.log(data);
             });
+
     };
 
     $scope.startTest = function() {

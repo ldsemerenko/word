@@ -1,7 +1,7 @@
-function TestController($scope, $http, $state) {
+function TestController($scope, $http) {
     $scope.translation = '';
     $scope.in_translation = ' ';
-    $scope.word = '';
+    $scope.word = '1';
     var currIndex = -1;
 
     $scope.nextWord = function () {
@@ -9,6 +9,8 @@ function TestController($scope, $http, $state) {
         if(currIndex < length - 1) {
             currIndex++;
             console.log(currIndex+1 + '/' + length);
+            console.log($scope.words[currIndex].word);
+
         }
         $scope.in_translation = '';
         $scope.words[currIndex].in_translation = $scope.in_translation;
