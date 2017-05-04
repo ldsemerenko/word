@@ -17,7 +17,7 @@ CREATE TABLE word.word(
   example TEXT,
   exampleTranslation TEXT,
   creature TIMESTAMP WITH TIME ZONE DEFAULT now(),
-  lastRead DATE,
+  lastRead TIMESTAMP WITH TIME ZONE,
   callCount INT,
   correctTranslations INT
 );

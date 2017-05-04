@@ -14,6 +14,7 @@ import play.mvc.Result;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class Application extends Controller{
@@ -60,20 +61,13 @@ public class Application extends Controller{
     }
 
     @Transactional
-    public Result updateWords(){
-        Word[] words;
+    public Result updateWord(){
+        Word word;
         Gson gson = new Gson();
         JsonNode body = request().body().asJson();
-        words = gson.fromJson(body.toString(), Word[].class);
-      /*  for (int i = 0; i < words.length; i++) {
-            System.out.println(words[i]);
-        }*/
-        for(Word w : words){
-            Word word = wordDao.findWord(w.getWord());
-            word.setCallCount(word.getCallCount()+1);
-            word.setCorrectTranslations(word.getCorrectTranslations()+w.getCorrectTranslations());
-            wordDao.update(word);
-        }
+        word = gson.fromJson(body.toString(), Word.class);
+        word.setLastRead(new Date(System.currentTimeMillis()));
+        wordDao.update(word);
         return ok("update ok");
     }
 
@@ -85,6 +79,7 @@ public class Application extends Controller{
         word = gson.fromJson(body.toString(), Word.class);
         if(word.getWord() == null || word.getTranslation() == null){return ok("Input error");}
         if (wordDao.findWord(word.getWord()) == null) {
+            word.setCreature(new Date(System.currentTimeMillis()));
             wordDao.create(word);
             return ok("Word added");
         } else {

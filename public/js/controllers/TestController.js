@@ -19,6 +19,7 @@ function TestController($scope, $http, $state) {
         $scope.translation = $scope.words[currIndex].translation;
         $scope.translations = $scope.words[currIndex].translations;
         };
+
     $scope.prevWord = function () {
         if(currIndex > 0)
             currIndex--;
@@ -31,20 +32,17 @@ function TestController($scope, $http, $state) {
     $scope.checkWords = function (value) {
         if (value === $scope.translation){
             /*console.log("true");*/
-            $scope.words[currIndex].correctTranslations = 1;
-        } else{
-            $scope.words[currIndex].correctTranslations = 0;
+            $scope.words[currIndex].correctTranslations+=1;
         }
+        $scope.words[currIndex].callCount+=1;
 
-        if(currIndex+1 === $scope.words.length) {
-            /*в конце отправка слов на обновление счетчиков в базе*/
-            $http.post('/updateWords', $scope.words)
+            $http.post('/updateWord', $scope.words[currIndex])
                 .success(function (data) {
                     console.log(data);
                 }).error(function (data) {
                 console.log(data);
             });
-        }
+
 
         $scope.nextWord();
     };
