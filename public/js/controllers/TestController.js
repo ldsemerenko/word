@@ -10,24 +10,13 @@ function TestController($scope, $http, $state) {
         var length = $scope.words.length;
         if(currIndex < length - 1) {
             currIndex++;
-            /*console.log(currIndex+1 + '/' + length);*/
-            
-        }
+         }
         $scope.in_translation = '';
         $scope.words[currIndex].in_translation = $scope.in_translation;
         $scope.word = $scope.words[currIndex].word;
         $scope.translation = $scope.words[currIndex].translation;
         $scope.translations = $scope.words[currIndex].translations;
         };
-
-    $scope.prevWord = function () {
-        if(currIndex > 0)
-            currIndex--;
-
-        $scope.word = $scope.words[currIndex].word;
-        $scope.translation = $scope.words[currIndex].translation;
-
-    };
 
     $scope.checkWords = function (value) {
         if (value === $scope.translation){
@@ -42,29 +31,9 @@ function TestController($scope, $http, $state) {
                 }).error(function (data) {
                 console.log(data);
             });
-
-
         $scope.nextWord();
     };
 
-    $scope.updateWord = function () {
-        var word = {
-
-
-        };
-        $http.post('/addWord', word)
-            .success(function (data) {
-                console.log(data);
-                if(data=='Word added'){
-                    $scope.word = '';
-                    $scope.translation = '';
-                }
-            }).error(function (data) {
-            console.log(data);
-        });
-    };
-
-    // $scope.getRandomWords = function () {
         var count = 20;
         $http({
             url: '/getRandomWords',
@@ -79,7 +48,10 @@ function TestController($scope, $http, $state) {
         }).error(function (data) {
             console.log(data);
         });
-    // };
+
+    $scope.goHome = function() {
+        $state.go('main');
+    };
 }
 
 angular
