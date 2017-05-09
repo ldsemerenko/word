@@ -1,9 +1,12 @@
 function TestController($scope, $http, $state) {
-    $scope.translation = '';
-    $scope.in_translation = ' ';
+    function compareRandom(a, b) {
+        return Math.random() - 0.5;
+    }
+
+    $scope.translations = '';
+    // $scope.in_translation = ' ';
     $scope.word = '';
     $scope.hide = false;
-
     var currIndex = -1;
 
     $scope.nextWord = function () {
@@ -13,9 +16,14 @@ function TestController($scope, $http, $state) {
          }
         $scope.in_translation = '';
         $scope.words[currIndex].in_translation = $scope.in_translation;
-        $scope.word = $scope.words[currIndex].word;
-        $scope.translation = $scope.words[currIndex].translation;
-        $scope.translations = $scope.words[currIndex].translations;
+        // $scope.wordArray = undefined;
+        $scope.wordArray = $scope.words[currIndex];
+        $scope.word = $scope.wordArray[0].word;
+        console.log($scope.wordArray);
+        $scope.wordArray.sort(compareRandom);
+        console.log($scope.wordArray);
+        // $scope.translation = $scope.words[currIndex].translation;
+        // $scope.translations = $scope.words[currIndex].translations;
         };
 
     $scope.checkWords = function (value) {
@@ -39,8 +47,7 @@ function TestController($scope, $http, $state) {
             url: '/getRandomWords',
             method: 'GET',
             params: {
-                count: count,
-                englishWords: true
+                count: count
             }
         }).success(function (data) {
             $scope.words = data;

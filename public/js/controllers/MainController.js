@@ -7,7 +7,7 @@ function MainController($scope, $http, $state) {
         };
         $http.post('/addWord', word)
             .success(function (data) {
-                console.log(data);
+                // console.log(data);
                 if(data=='Word added'){
                     $scope.word = '';
                     $scope.translation = '';

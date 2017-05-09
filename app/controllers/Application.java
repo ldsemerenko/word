@@ -29,7 +29,6 @@ public class Application extends Controller{
     public Result getRandomWords() {
         Gson gson = new Gson();
         int count = Integer.parseInt(request().getQueryString("count"));
-        boolean englishWords = Boolean.parseBoolean(request().getQueryString("englishWords"));
 
         List<Word> wordList = wordDao.findAll();
         Collections.shuffle(wordList);
@@ -41,21 +40,15 @@ public class Application extends Controller{
         for (Word word : wordList){
             List<Word> tempList = new ArrayList<>(allWodrsList);
             Collections.shuffle(tempList);
-            JsonElement wordElement = gson.toJsonTree(word);
+            JsonArray randWordArray = new JsonArray();
+            randWordArray.add(gson.toJsonTree(word));
             tempList.remove(word);
             tempList = tempList.subList(0,4);
-            tempList.add(word);
-            Collections.shuffle(tempList);
 
-            JsonArray randWordArray = new JsonArray();
-            randWordArray.add(tempList.get(0).getTranslation());
-            randWordArray.add(tempList.get(1).getTranslation());
-            randWordArray.add(tempList.get(2).getTranslation());
-            randWordArray.add(tempList.get(3).getTranslation());
-            randWordArray.add(tempList.get(4).getTranslation());
-            wordElement.getAsJsonObject().add("translations", randWordArray);
-
-            wordArray.add(wordElement);
+            for (Word w : tempList){
+                randWordArray.add(gson.toJsonTree(w));
+            }
+            wordArray.add(randWordArray);
         }
 
         return ok(wordArray.toString());
