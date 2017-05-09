@@ -29,6 +29,7 @@ public class Application extends Controller{
     public Result getRandomWords() {
         Gson gson = new Gson();
         int count = Integer.parseInt(request().getQueryString("count"));
+        boolean englishWords = Boolean.parseBoolean(request().getQueryString("englishWords"));
 
         List<Word> wordList = wordDao.findAll();
         Collections.shuffle(wordList);

@@ -39,7 +39,8 @@ function TestController($scope, $http, $state) {
             url: '/getRandomWords',
             method: 'GET',
             params: {
-                count: count
+                count: count,
+                englishWords: true
             }
         }).success(function (data) {
             $scope.words = data;
