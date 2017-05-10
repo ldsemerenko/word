@@ -1,16 +1,18 @@
 <div ng-controller="MainController">
     <div>
         Word: <input type="text" ng-model=word>
-
         Translation: <input type="text" ng-model=translation>
-    </div>
-
-    <div>
         <input type="button" ng-click="addWord()" value="add">
     </div>
-
+    <br>
     <div>
+        <select ng-model="selectLanguage" ng-options="type for type in testTypes">
+        </select>
         <input type="button" ng-click="startTest()" value="test">
+    </div>
+    <br>
+    <div>
+        <input type="button" ng-click="viewStatistic()" value="statistic">
     </div>
 
 </div>

@@ -1,4 +1,8 @@
-function MainController($scope, $http, $state) {
+function MainController($rootScope, $scope, $http, $state) {
+    $rootScope.choseEn = 'en->ru';
+    $rootScope.choseRu = 'ru->en';
+    $scope.testTypes = [$rootScope.choseEn, $rootScope.choseRu];
+    $scope.selectLanguage = $scope.testTypes[0];
 
     $scope.addWord = function () {
         var word = {
@@ -8,7 +12,7 @@ function MainController($scope, $http, $state) {
         $http.post('/addWord', word)
             .success(function (data) {
                 // console.log(data);
-                if(data=='Word added'){
+                if(data === 'Word added'){
                     $scope.word = '';
                     $scope.translation = '';
                 }
@@ -19,8 +23,13 @@ function MainController($scope, $http, $state) {
     };
 
     $scope.startTest = function() {
+        $rootScope.selectLanguage = $scope.selectLanguage;
         $state.go('test');
     };
+
+    $scope.viewStatistic = function () {
+        $state.go('statistic');
+    }
 
 }
 

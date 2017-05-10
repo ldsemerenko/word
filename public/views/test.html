@@ -1,18 +1,16 @@
 <div ng-controller="TestController">
-
     <div>
-        word: {{word}}
-
+        {{label}}
     </div>
-
+    <br>
     <div>
-        <input type="button" ng-click="checkWords(wordArray[0].translation)" ng-value="wordArray[0].translation">
-        <input type="button" ng-click="checkWords(wordArray[1].translation)" ng-value="wordArray[1].translation">
-        <input type="button" ng-click="checkWords(wordArray[2].translation)" ng-value="wordArray[2].translation">
-        <input type="button" ng-click="checkWords(wordArray[3].translation)" ng-value="wordArray[3].translation">
-        <input type="button" ng-click="checkWords(wordArray[4].translation)" ng-value="wordArray[4].translation">
+        <input type="button" ng-click="checkWords(labels[0])" ng-value="labels[0]">
+        <input type="button" ng-click="checkWords(labels[1])" ng-value="labels[1]">
+        <input type="button" ng-click="checkWords(labels[2])" ng-value="labels[2]">
+        <input type="button" ng-click="checkWords(labels[3])" ng-value="labels[3]">
+        <input type="button" ng-click="checkWords(labels[4])" ng-value="labels[4]">
     </div>
-
+    <br>
     <div>
         <input type = "button" ng-click="goHome()" value="go home">
     </div>

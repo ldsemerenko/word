@@ -1,44 +1,56 @@
-function TestController($scope, $http, $state) {
-    function compareRandom(a, b) {
-        return Math.random() - 0.5;
-    }
-
-    $scope.translations = '';
-    // $scope.in_translation = ' ';
-    $scope.word = '';
-    $scope.hide = false;
+function TestController($scope, $rootScope, $http, $state) {
+    $scope.selectLanguage = $rootScope.selectLanguage;
     var currIndex = -1;
-
+    $scope.labels = [5];
+    $scope.label = '';
+    var i;
     $scope.nextWord = function () {
         var length = $scope.words.length;
         if(currIndex < length - 1) {
             currIndex++;
-         }
-        $scope.in_translation = '';
-        $scope.words[currIndex].in_translation = $scope.in_translation;
-        // $scope.wordArray = undefined;
-        $scope.wordArray = $scope.words[currIndex];
-        $scope.word = $scope.wordArray[0].word;
-        console.log($scope.wordArray);
-        $scope.wordArray.sort(compareRandom);
-        console.log($scope.wordArray);
-        // $scope.translation = $scope.words[currIndex].translation;
-        // $scope.translations = $scope.words[currIndex].translations;
-        };
+            } else {
+                alert('end');
+                $scope.goHome();
+            }
+
+        if($scope.selectLanguage === $rootScope.choseEn){
+            $scope.wordArray = $scope.words[currIndex];
+            $scope.word = $scope.wordArray[0];
+            $scope.label = 'Word: ' + $scope.word.word;
+            $scope.translation = $scope.word.translation;
+            $scope.wordArray.sort(compareRandom);
+            for(i = 0; i < 5; i++){
+                $scope.labels[i] = $scope.wordArray[i].translation;
+            }
+        }else{
+            $scope.wordArray = $scope.words[currIndex];
+            $scope.word = $scope.wordArray[0];
+            $scope.label = 'Слово: ' + $scope.word.translation;
+            $scope.translation = $scope.word.word;
+            $scope.wordArray.sort(compareRandom);
+            for(i = 0; i < 5; i++){
+                $scope.labels[i] = $scope.wordArray[i].word;
+            }
+        }
+    };
 
     $scope.checkWords = function (value) {
         if (value === $scope.translation){
-            /*console.log("true");*/
-            $scope.words[currIndex].correctTranslations+=1;
+            $scope.word.correctTranslations+=1;
+        } else {
+            if($scope.selectLanguage === $rootScope.choseEn) {
+                alert($scope.word.word + ' - ' + $scope.word.translation);
+            } else {
+                alert($scope.word.translation + ' - ' + $scope.word.word);
+            }
         }
-        $scope.words[currIndex].callCount+=1;
-
-            $http.post('/updateWord', $scope.words[currIndex])
-                .success(function (data) {
-                    console.log(data);
-                }).error(function (data) {
+        $scope.word.callCount+=1;
+        $http.post('/updateWord', $scope.word)
+            .success(function (data) {
                 console.log(data);
-            });
+            }).error(function (data) {
+            console.log(data);
+        });
         $scope.nextWord();
     };
 
@@ -60,6 +72,10 @@ function TestController($scope, $http, $state) {
     $scope.goHome = function() {
         $state.go('main');
     };
+
+    function compareRandom(a, b) {
+        return Math.random() - 0.5;
+    }
 }
 
 angular
