@@ -18,6 +18,7 @@ function config($stateProvider, $urlRouterProvider) {
             url: "/statistic",
             templateUrl: "/assets/views/statistic.html"
         });
+
 }
 
 angular

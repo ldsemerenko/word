@@ -41,6 +41,8 @@ function MainController($rootScope, $scope, $http, $state) {
                 if(data === 'Word added'){
                     $scope.word = '';
                     $scope.translation = '';
+                } else {
+                    alert($scope.word + " уже есть в словаре");
                 }
             }).error(function (data) {
                 console.log(data);

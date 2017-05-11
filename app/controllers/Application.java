@@ -129,5 +129,4 @@ public class Application extends Controller{
             return ok("The word already exists");
         }
     }
-
 }
