@@ -10,6 +10,9 @@ POST        /updateWord            controllers.Application.updateWord()
 
 GET         /getRandomWords        controllers.Application.getRandomWords()
 
+GET         /uploadWords           controllers.Application.uploadWords()
+
+GET         /downloadWords         controllers.Application.downloadWords()
 
 
 # Map static resources from the /public folder to the /assets URL path

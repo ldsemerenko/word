@@ -4,6 +4,32 @@ function MainController($rootScope, $scope, $http, $state) {
     $scope.testTypes = [$rootScope.choseEn, $rootScope.choseRu];
     $scope.selectLanguage = $scope.testTypes[0];
 
+    $scope.uploadWords = function(){
+        $http({
+            url: '/uploadWords',
+            method: 'GET'
+
+        }).success(function (data) {
+            console.log(data);
+        }).error(function (data) {
+            console.log(data);
+        });
+
+    };
+
+    $scope.downloadWords = function(){
+        $http({
+            url: '/downloadWords',
+            method: 'GET'
+
+        }).success(function (data) {
+            console.log(data);
+        }).error(function (data) {
+            console.log(data);
+        });
+
+    };
+
     $scope.addWord = function () {
         var word = {
             word: $scope.word,

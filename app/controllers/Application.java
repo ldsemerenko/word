@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.inject.Inject;
 import dao.WordDao;
 import dao.WordDaoImpl;
@@ -12,6 +13,10 @@ import play.db.jpa.Transactional;
 import play.mvc.Controller;
 import play.mvc.Result;
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -19,6 +24,7 @@ import java.util.List;
 
 public class Application extends Controller{
     private final WordDao wordDao;
+    private final String FILE_NAME = "words.json";
 
     @Inject
     public Application(WordDaoImpl wordDao) {
@@ -26,11 +32,54 @@ public class Application extends Controller{
     }
 
     @Transactional(readOnly = true)
+    public Result uploadWords(){
+        FileOutputStream fileOutputStream;
+        File file = new File(FILE_NAME);
+        List<Word> wordList = wordDao.findAll();
+        Gson gson = new Gson();
+        JsonElement jsonElement = new JsonObject();
+        jsonElement.getAsJsonObject().add("words", gson.toJsonTree(wordList).getAsJsonArray());
+        try {
+            fileOutputStream = new FileOutputStream(file);
+            try {
+                fileOutputStream.write(jsonElement.toString().getBytes());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return ok("Uploaded " + wordList.size() + " words");
+    }
+
+    @Transactional
+    public Result downloadWords(){
+        Gson gson = new Gson();
+        Word[] words;
+        int counter = 0;
+        String wordsAsStr = "";
+        try {
+            wordsAsStr = Files.readAllLines(Paths.get(FILE_NAME)).get(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        JsonElement jsonElement = gson.fromJson(wordsAsStr, JsonElement.class);
+        words = gson.fromJson(jsonElement.getAsJsonObject().getAsJsonArray("words"), Word[].class);
+
+        for (Word w : words){
+            System.out.println(w.toString());
+        }
+
+        return ok("Downloaded " + counter + " words");
+    }
+
+    @Transactional(readOnly = true)
     public Result getRandomWords() {
         Gson gson = new Gson();
         int count = Integer.parseInt(request().getQueryString("count"));
-
         List<Word> wordList = wordDao.findAll();
+
         Collections.shuffle(wordList);
         count = Math.min(count, wordList.size());
         List<Word> allWodrsList = new ArrayList<>(wordList);
