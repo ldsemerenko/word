@@ -2,7 +2,14 @@ function MainController($rootScope, $scope, $http, $state) {
     $rootScope.choseEn = 'en->ru';
     $rootScope.choseRu = 'ru->en';
     $scope.testTypes = [$rootScope.choseEn, $rootScope.choseRu];
+
+    $rootScope.sortRand = 'random words';
+    $rootScope.sortNew = 'new words';
+    $rootScope.sortBad = 'bad words';
+    $scope.sortTypes = [$rootScope.sortRand, $rootScope.sortNew, $rootScope.sortBad];
+
     $scope.selectLanguage = $scope.testTypes[0];
+    $scope.selectSorting = $scope.sortTypes[0];
 
     $scope.uploadWords = function(){
         $http({
@@ -50,8 +57,15 @@ function MainController($rootScope, $scope, $http, $state) {
 
     };
 
+    $scope.startLearn = function() {
+        $rootScope.selectLanguage = $scope.selectLanguage;
+        $rootScope.selectSorting = $scope.selectSorting;
+        //$state.go('Learn');
+    };
+
     $scope.startTest = function() {
         $rootScope.selectLanguage = $scope.selectLanguage;
+        $rootScope.selectSorting = $scope.selectSorting;
         $state.go('test');
     };
 

@@ -8,13 +8,17 @@
     <div>
         <select ng-model="selectLanguage" ng-options="type for type in testTypes">
         </select>
+
+        <select ng-model="selectSorting" ng-options="type for type in sortTypes">
+        </select>
+        <input type="button" ng-click="startLearn()" value="learn">
         <input type="button" ng-click="startTest()" value="test">
     </div>
     <br>
     <div>
         <input type="button" ng-click="viewStatistic()" value="statistic">
-        <input type="button" ng-click="uploadWords()" value="upload to file">
-        <input type="button" ng-click="downloadWords()" value="download from file">
+        <input type="button" ng-click="uploadWords()" value="download to file">
+        <input type="button" ng-click="downloadWords()" value="upload from file">
     </div>
 
 </div>

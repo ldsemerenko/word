@@ -25,7 +25,7 @@ public class WordDaoImpl implements WordDao {
     @Override
     public void create(Word users) {
         EntityManager em = jpaApi.em();
-        em.merge(users);
+        em.persist(users);
     }
 
     @Override
@@ -38,6 +38,28 @@ public class WordDaoImpl implements WordDao {
     public List<Word> findAll() {
         EntityManager em = jpaApi.em();
         TypedQuery<Word> query = em.createQuery("SELECT w from Word w", Word.class);
+        try {
+            return query.getResultList();
+        } catch (NoResultException e){
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public List<Word> findBadWords() {
+        EntityManager em = jpaApi.em();
+        TypedQuery<Word> query = em.createQuery("SELECT w from Word w ORDER BY w.callCount / GREATEST(w.correctTranslations, 0.0001) DESC", Word.class);
+        try {
+            return query.getResultList();
+        } catch (NoResultException e){
+            return Collections.emptyList();
+        }
+    }
+
+    @Override
+    public List<Word> findNewWords(){
+        EntityManager em = jpaApi.em();
+        TypedQuery<Word> query = em.createQuery("SELECT w from Word w order by w.callCount", Word.class);
         try {
             return query.getResultList();
         } catch (NoResultException e){

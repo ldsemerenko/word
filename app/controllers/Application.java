@@ -14,7 +14,6 @@ import play.mvc.Controller;
 import play.mvc.Result;
 
 import java.io.*;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -25,6 +24,7 @@ import java.util.List;
 public class Application extends Controller{
     private final WordDao wordDao;
     private final String FILE_NAME = "words.json";
+//    enum SORTING{new_words, bad_words, random_words};
 
     @Inject
     public Application(WordDaoImpl wordDao) {
@@ -59,6 +59,8 @@ public class Application extends Controller{
         int counter = 0;
         String wordsAsStr = "";
 
+
+
         try {
             wordsAsStr = Files.readAllLines(Paths.get(FILE_NAME)).get(0);
         } catch (IOException e) {
@@ -71,6 +73,7 @@ public class Application extends Controller{
         for (Word w : words){
             if(wordDao.findWord(w.getWord()) == null){
                 counter++;
+                w.setId(null);
                 wordDao.create(w);
             }
         }
@@ -82,16 +85,31 @@ public class Application extends Controller{
     public Result getRandomWords() {
         Gson gson = new Gson();
         int count = Integer.parseInt(request().getQueryString("count"));
+        String sorting = String.valueOf(request().getQueryString("sorting"));
         List<Word> wordList = wordDao.findAll();
+        List<Word> allWordsList = wordDao.findAll();
 
-        Collections.shuffle(wordList);
+        switch (sorting) {
+            case "random words": {
+                Collections.shuffle(wordList);
+                break;
+            }
+            case "bad words": {
+                wordList = wordDao.findBadWords();
+                break;
+            }
+            case "new words": {
+                wordList = wordDao.findNewWords();
+                break;
+            }
+        }
+
         count = Math.min(count, wordList.size());
-        List<Word> allWodrsList = new ArrayList<>(wordList);
         wordList = wordList.subList(0, count);
 
         JsonArray wordArray = new JsonArray();
         for (Word word : wordList){
-            List<Word> tempList = new ArrayList<>(allWodrsList);
+            List<Word> tempList = new ArrayList<>(allWordsList);
             Collections.shuffle(tempList);
             JsonArray randWordArray = new JsonArray();
             randWordArray.add(gson.toJsonTree(word));
