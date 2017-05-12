@@ -58,6 +58,7 @@ public class Application extends Controller{
         Word[] words;
         int counter = 0;
         String wordsAsStr = "";
+
         try {
             wordsAsStr = Files.readAllLines(Paths.get(FILE_NAME)).get(0);
         } catch (IOException e) {
@@ -68,7 +69,10 @@ public class Application extends Controller{
         words = gson.fromJson(jsonElement.getAsJsonObject().getAsJsonArray("words"), Word[].class);
 
         for (Word w : words){
-            System.out.println(w.toString());
+            if(wordDao.findWord(w.getWord()) == null){
+                counter++;
+                wordDao.create(w);
+            }
         }
 
         return ok("Downloaded " + counter + " words");

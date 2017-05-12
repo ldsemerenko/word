@@ -3,13 +3,14 @@ function TestController($scope, $rootScope, $http, $state) {
     var currIndex = -1;
     $scope.labels = [5];
     $scope.label = '';
+    $scope.counter = 0;
     var i;
     $scope.nextWord = function () {
         var length = $scope.words.length;
         if(currIndex < length - 1) {
             currIndex++;
             } else {
-                alert('end');
+                alert($scope.counter + ' out of ' + count);
                 $scope.goHome();
             }
 
@@ -37,6 +38,7 @@ function TestController($scope, $rootScope, $http, $state) {
     $scope.checkWords = function (value) {
         if (value === $scope.translation){
             $scope.word.correctTranslations+=1;
+            $scope.counter++;
         } else {
             if($scope.selectLanguage === $rootScope.choseEn) {
                 alert($scope.word.word + ' - ' + $scope.word.translation);
@@ -73,7 +75,7 @@ function TestController($scope, $rootScope, $http, $state) {
         $state.go('main');
     };
 
-    function compareRandom(a, b) {
+    function compareRandom() {
         return Math.random() - 0.5;
     }
 }
